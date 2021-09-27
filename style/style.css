@@ -50,11 +50,17 @@ header {
   appearance: none;
   border: 0;
   border-radius: 5px;
-  background: #000;
-  color: #fff;
+  background: #fff;
+  color: #000;
   margin-top: 20px;
   padding: 12px 14px;
   font-size: 10pt;
+  transition: 0.45s;
+}
+
+.buy-btn:hover {
+  background: #000;
+  color: #fff;
 }
 
 .product-bio {
@@ -122,4 +128,73 @@ header {
   width: 50px;
   border: 2px solid #000;
   margin: 10px 0px 10px 5px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.form-feedback {
+  width: 600px;
+  display: flex;
+  background-color: #5c585871;
+  align-items: center;
+  flex-direction: column;
+  border: none;
+  border-radius: 20px;
+}
+
+.form-name {
+  margin: 10px 0;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.form-input {
+  width: 250px;
+  border: 2px solid #000;
+  border-radius: 5px;
+  padding: 10px 0;
+  font-size: 16px;
+  text-align: center;
+  outline: none;
+}
+
+.red {
+  border: 2px solid rgb(255, 0, 0);
+}
+
+.incorrect-input {
+  font-size: 16px;
+  font-weight: bold;
+  color: rgb(197, 26, 26);
+}
+
+.form-user-message {
+  outline: none;
+  text-align: center;
+  padding: 15px 0;
+  font-size: 16px;
+  resize: none;
+}
+
+.form-btn-send {
+  margin: 15px 0;
+  padding: 15px;
+  background-color: black;
+  border-radius: 10px;
+  border: none;
+  font-size: 14px;
+  color: #fff;
+  transition: 0.45s;
+}
+
+.form-btn-send:hover {
+  background-color: rgb(54, 167, 54);
+}
+
+.hidden {
+  display: none;
 }

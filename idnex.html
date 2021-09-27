@@ -38,6 +38,32 @@
         </div>
     </div>
 
+    <div class="form-wrap">
+        <div class="wrap">
+            <form action="#">
+                <h3 class="form-title">Заполните пожалуйста нашу анкету</h3>
+                    <fieldset class="form-feedback">
+                        <p class="form-name">Введите Ваше имя</p>
+                        <input class="form-input" id='name' type="text">
+                        <p class='incorrect-input hidden' data-id='name'>Введите правильные данные!</p>
+
+                        <p class="form-name">Введите Ваш телефон</p>
+                        <input class="form-input" id='telephone' type="text">
+                        <p class='incorrect-input hidden' data-id='telephone'>Введите правильные данные!</p>
+
+                        <p class="form-name">Введите Ваш адрес электронной почты</p>
+                        <input class="form-input" id='mail' type="text">
+                        <p class='incorrect-input hidden' data-id='mail'>Введите правильные данные!</p>
+                        
+                        <p class="form-name">Если у Вас есть пожелания для улучшения нашего магазина - смело пишите нам :D</p>
+                        <textarea class="form-user-message" id='user-message' name="" id="" cols="30" rows="10"></textarea>
+                        <button class='form-btn-send' type="submit">Отправить</button>
+                    </fieldset>
+            </form>
+        </div>
+    </div>
+
 <script src="js/script.js"></script>
+<script src="./js/validator.js"></script>
 </body>
 </html>
