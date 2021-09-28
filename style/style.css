@@ -198,3 +198,23 @@ form {
 .hidden {
   display: none;
 }
+
+.main-search {
+  display: flex;
+  position: relative;
+  align-items: center;
+}
+
+.search {
+  padding: 5px 0 5px 30px;
+  outline: none;
+}
+
+.search-btn {
+  width: 30px;
+  height: 30px;
+  background-color: transparent;
+  position: absolute;
+  border: none;
+  left: 0;
+}
