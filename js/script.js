@@ -94,6 +94,7 @@ class Cart extends List {
   }
 
   addProduct(element) {
+    const emptyContent = document.querySelector(".cart-epmty-content");
     this.getJson(`${API}/addToBasket.json`).then(data => {
       if (data.result === 1) {
         let productId = +element.dataset["id"];
@@ -113,6 +114,7 @@ class Cart extends List {
           this.goods = [product];
           this.render();
         }
+        emptyContent.classList.add("hidden");
       } else {
         alert("Error");
       }
@@ -121,8 +123,8 @@ class Cart extends List {
   removeProduct(element) {
     this.getJson(`${API}/deleteFromBasket.json`).then(data => {
       if (data.result === 1) {
-        let productId = +element.dataset["id"];
-        let find = this.allProducts.find(
+        const productId = +element.dataset["id"];
+        const find = this.allProducts.find(
           product => product.id_product === productId
         );
         if (find.quantity > 1) {
@@ -131,6 +133,12 @@ class Cart extends List {
         } else {
           this.allProducts.splice(this.allProducts.indexOf(find), 1);
           document.querySelector(`.cart-item[data-id="${productId}"]`).remove();
+        }
+        const isEmpty = document.querySelector(".cart-block");
+        const isEmptyContent = document.querySelector(".cart-epmty-content");
+        console.dir(isEmpty.childNodes);
+        if (isEmpty.childNodes.length == 0) {
+          isEmptyContent.classList.remove("hidden");
         }
       } else {
         alert("Error");
@@ -153,9 +161,13 @@ class Cart extends List {
   _init() {
     document.querySelector(".card_btn").addEventListener("click", () => {
       document.querySelector(this.container).classList.toggle("invisible");
-    });
-    document.querySelector(".card_btn").addEventListener("click", () => {
       document.querySelector(".modal__content").classList.toggle("invisible");
+      const isEmpty = document.querySelector(".cart-block");
+      const isEmptyContent = document.querySelector(".cart-epmty-content");
+      console.dir(isEmpty.childNodes);
+      if (isEmpty.childNodes.length !== 0) {
+        isEmptyContent.classList.add("hidden");
+      }
     });
     document.querySelector(this.container).addEventListener("click", e => {
       if (e.target.classList.contains("del-btn")) {

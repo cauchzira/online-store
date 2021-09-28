@@ -218,3 +218,9 @@ form {
   border: none;
   left: 0;
 }
+
+.cart-epmty-content {
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+}
