@@ -1,5 +1,5 @@
 "use strict";
-
+//Первое решение
 document.querySelector(".search").oninput = function () {
   let value = this.value.toLowerCase().trim();
   const itemList = document.querySelectorAll(".product-item");
@@ -20,6 +20,7 @@ document.querySelector(".search").oninput = function () {
 };
 
 // МЕГАСУПЕРПУПЕРРЕШЕНИЯINONELINE
+//Второе решение
 
 // const searchInput = document.querySelector(".search");
 
