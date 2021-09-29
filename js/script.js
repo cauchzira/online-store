@@ -13,8 +13,8 @@ class List {
 
   getJson(url) {
     return fetch(url ? url : `${API + this.url}`)
-      .then((result) => result.json())
-      .catch((error) => {
+      .then(result => result.json())
+      .catch(error => {
         console.log(error);
       });
   }
@@ -32,7 +32,7 @@ class List {
     const block = document.querySelector(this.container);
     for (let product of this.goods) {
       const productObj = new this.list[this.constructor.name](product);
-      console.log(productObj);
+      // console.log(productObj);
       this.allProducts.push(productObj);
       block.insertAdjacentHTML("beforeend", productObj.render());
     }
@@ -71,11 +71,11 @@ class ProductsList extends List {
   constructor(cart, container = ".products", url = "/catalogData.json") {
     super(url, container);
     this.cart = cart;
-    this.getJson().then((data) => this.handleData(data));
+    this.getJson().then(data => this.handleData(data));
   }
 
   _init() {
-    document.querySelector(this.container).addEventListener("click", (e) => {
+    document.querySelector(this.container).addEventListener("click", e => {
       if (e.target.classList.contains("buy-btn")) {
         this.cart.addProduct(e.target);
       }
@@ -88,17 +88,18 @@ class ProductItem extends Item {}
 class Cart extends List {
   constructor(container = ".cart-block", url = "/getBasket.json") {
     super(url, container);
-    this.getJson().then((data) => {
+    this.getJson().then(data => {
       this.handleData(data.contents);
     });
   }
 
   addProduct(element) {
-    this.getJson(`${API}/addToBasket.json`).then((data) => {
+    const emptyContent = document.querySelector(".cart-epmty-content");
+    this.getJson(`${API}/addToBasket.json`).then(data => {
       if (data.result === 1) {
         let productId = +element.dataset["id"];
         let find = this.allProducts.find(
-          (product) => product.id_product === productId
+          product => product.id_product === productId
         );
         if (find) {
           find.quantity++;
@@ -108,22 +109,23 @@ class Cart extends List {
             id_product: productId,
             price: +element.dataset["price"],
             product_name: element.dataset["name"],
-            quantity: 1,
+            quantity: 1
           };
           this.goods = [product];
           this.render();
         }
+        emptyContent.classList.add("hidden");
       } else {
         alert("Error");
       }
     });
   }
   removeProduct(element) {
-    this.getJson(`${API}/deleteFromBasket.json`).then((data) => {
+    this.getJson(`${API}/deleteFromBasket.json`).then(data => {
       if (data.result === 1) {
-        let productId = +element.dataset["id"];
-        let find = this.allProducts.find(
-          (product) => product.id_product === productId
+        const productId = +element.dataset["id"];
+        const find = this.allProducts.find(
+          product => product.id_product === productId
         );
         if (find.quantity > 1) {
           find.quantity--;
@@ -131,6 +133,12 @@ class Cart extends List {
         } else {
           this.allProducts.splice(this.allProducts.indexOf(find), 1);
           document.querySelector(`.cart-item[data-id="${productId}"]`).remove();
+        }
+        const isEmpty = document.querySelector(".cart-block");
+        const isEmptyContent = document.querySelector(".cart-epmty-content");
+        console.dir(isEmpty.childNodes);
+        if (isEmpty.childNodes.length == 0) {
+          isEmptyContent.classList.remove("hidden");
         }
       } else {
         alert("Error");
@@ -153,11 +161,15 @@ class Cart extends List {
   _init() {
     document.querySelector(".card_btn").addEventListener("click", () => {
       document.querySelector(this.container).classList.toggle("invisible");
-    });
-    document.querySelector(".card_btn").addEventListener("click", () => {
       document.querySelector(".modal__content").classList.toggle("invisible");
+      const isEmpty = document.querySelector(".cart-block");
+      const isEmptyContent = document.querySelector(".cart-epmty-content");
+      console.dir(isEmpty.childNodes);
+      if (isEmpty.childNodes.length !== 0) {
+        isEmptyContent.classList.add("hidden");
+      }
     });
-    document.querySelector(this.container).addEventListener("click", (e) => {
+    document.querySelector(this.container).addEventListener("click", e => {
       if (e.target.classList.contains("del-btn")) {
         this.removeProduct(e.target);
       }
@@ -193,7 +205,7 @@ class CartItem extends Item {
 
 const list2 = {
   ProductsList: ProductItem,
-  Cart: CartItem,
+  Cart: CartItem
 };
 
 let cart = new Cart();
